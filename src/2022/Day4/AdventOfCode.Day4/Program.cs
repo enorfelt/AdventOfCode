@@ -6,3 +6,4 @@ foreach (var line in lines)
 }
 Console.WriteLine(elfPairs.Where(x => x.IntersectsFully).Count()); // 573
 Console.WriteLine(elfPairs.Where(x => x.IntersectsPartially).Count()); // 867
+Console.WriteLine(elfPairs.Select(x => x.IntersectingSections).Sum()); // 23740

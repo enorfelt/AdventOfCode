@@ -10,4 +10,12 @@ public readonly record struct Section(int Start, int End)
 	{
 		return Start <= other.Start && other.End <= End;
 	}
+
+	public int NumberOfIntersected(Section other)
+	{
+		var start = Math.Max(Start, other.Start);
+		var end = Math.Min(End, other.End);
+
+		return Math.Abs(end - start) + 1;
+	}
 }
