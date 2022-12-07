@@ -29,13 +29,13 @@
 
 			var sumOfSmallestFolders = foldersFlat.Where(f => f.Size <= 100000).Select(x => x.Size).Sum();
 
-			var foldersBySize = foldersFlat.OrderBy(x => x.Size);
 			var usedSpace = root.Size;
 			var totalDiskSpace = 70000000;
 			var neededSpace = 30000000;
 			var freeSpace = totalDiskSpace - usedSpace;
 			var diff = neededSpace - freeSpace;
 
+			var foldersBySize = foldersFlat.OrderBy(x => x.Size);
 			var folderForDeletaionSize = foldersBySize.First(x => diff - x.Size <= 0).Size;
 
 			return new Result(sumOfSmallestFolders, folderForDeletaionSize);
