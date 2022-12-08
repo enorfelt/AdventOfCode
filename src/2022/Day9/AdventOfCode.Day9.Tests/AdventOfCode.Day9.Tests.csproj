@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdventOfCode.Day8\AdventOfCode.Day8.csproj" />
+    <ProjectReference Include="..\AdventOfCode.Day9\AdventOfCode.Day9.csproj" />
   </ItemGroup>
 
 </Project>

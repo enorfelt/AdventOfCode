@@ -1,2 +1,4 @@
 ﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+using AdventOfCode.Day8;
+var input = File.ReadAllLines("Input.txt");
+Console.WriteLine(TreeCounter.CountVisible(input));
