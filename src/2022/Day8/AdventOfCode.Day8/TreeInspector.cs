@@ -1,8 +1,8 @@
 ﻿namespace AdventOfCode.Day8;
 
-public class TreeCounter
+public class TreeInspector
 {
-	public static Result CountVisible(string[] input)
+	public static Result Inspect(string[] input)
 	{
 		var trees = new Tree[input.Length, input[0].Length];
 		var treesFlat = new List<Tree>();
@@ -20,6 +20,7 @@ public class TreeCounter
 				trees[y, x] = tree;
 			}
 		}
+
 		return new Result(treesFlat.Where(t => t.IsVisible).Count(), treesFlat.Max(t => t.ScenicScore));
 	}
 }
