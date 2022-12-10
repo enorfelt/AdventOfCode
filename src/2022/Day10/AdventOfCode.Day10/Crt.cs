@@ -7,10 +7,15 @@ namespace AdventOfCode.Day10
 		private int _pixelPositionRow = 0;
 		private int _pixelPositionColumn = 0;
 		private char[,] _screen = new char[6,40];
-		public Crt() 
+		private Registry registry;
+		private ClockCircuit clockCircuit;
+
+		public Crt(ClockCircuit clockCircuit, Registry registry)
 		{
-			Registry.GetInstance().OnRegistryUpdated += Crt_OnRegistryUpdated;
-			ClockCircuit.GetInstance().OnCycle += Crt_OnCycle;
+			this.registry = registry;
+			this.clockCircuit = clockCircuit;
+			this.registry.OnRegistryUpdated += Crt_OnRegistryUpdated;
+			this.clockCircuit.OnCycle += Crt_OnCycle;
 		}
 
 		public void Print()
@@ -53,8 +58,8 @@ namespace AdventOfCode.Day10
 
 		public void Dispose()
 		{
-			ClockCircuit.GetInstance().OnCycle -= Crt_OnCycle;
-			Registry.GetInstance().OnRegistryUpdated -= Crt_OnRegistryUpdated;
+			this.clockCircuit.OnCycle -= Crt_OnCycle;
+			this.registry.OnRegistryUpdated -= Crt_OnRegistryUpdated;
 		}
 	}
 }

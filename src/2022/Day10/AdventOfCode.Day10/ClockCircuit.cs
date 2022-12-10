@@ -8,16 +8,17 @@ namespace AdventOfCode.Day10
 
 	public class ClockCircuit
 	{
-		private static ClockCircuit? _instance;
 		private readonly List<int> _signalStrenghts = new();
 		private int cycleChecks = 20;
 
 		private readonly object _lock = new object();
+		private readonly Registry registry;
 
 		public event EventHandler? OnCycle;
 
-		private ClockCircuit()
+		public ClockCircuit(Registry registry)
 		{
+			this.registry = registry;
 		}
 
 		public int Cycles { get; private set; }
@@ -32,20 +33,11 @@ namespace AdventOfCode.Day10
 				OnCycle?.Invoke(this, new OnCycleEventsArgs { Cycle = Cycles });
 				if (Cycles == cycleChecks)
 				{
-					var signalStrength = Cycles * Registry.GetInstance().X;
+					var signalStrength = Cycles * registry.X;
 					_signalStrenghts.Add(signalStrength);
 					cycleChecks += 40;
 				}
 			}
-		}
-
-		public static ClockCircuit GetInstance()
-		{
-			if (_instance == null)
-			{
-				_instance = new ClockCircuit();
-			}
-			return _instance;
 		}
 	}
 }

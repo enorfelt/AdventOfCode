@@ -6,8 +6,10 @@ namespace AdventOfCode.Day10
 	{
 		public static Result Run(string[] input)
 		{
-			using var crt = new Crt();
-			var instructions = GetInstructions(input);
+			var registry = new Registry();
+			var clockCircuit = new ClockCircuit(registry);
+			using var crt = new Crt(clockCircuit, registry);
+			var instructions = GetInstructions(input, registry, clockCircuit);
 			foreach (var instruction in instructions)
 			{
 				instruction.Run();
@@ -15,20 +17,20 @@ namespace AdventOfCode.Day10
 
 			crt.Print();
 			
-			return new(ClockCircuit.GetInstance().SignalStrengths.Sum());
+			return new(clockCircuit.SignalStrengths.Sum());
 		}
 
-		private static IEnumerable<IInstruction> GetInstructions(string[] lines)
+		private static IEnumerable<IInstruction> GetInstructions(string[] lines, Registry registry, ClockCircuit clockCircuit)
 		{
 			foreach (var line in lines)
 			{
 				if (line.StartsWith("noop"))
 				{
-					yield return new NoopInstruction();
+					yield return new NoopInstruction(clockCircuit);
 				}
 				else
 				{
-					yield return new AddxInstruction
+					yield return new AddxInstruction(clockCircuit, registry)
 					{
 						Value = int.Parse(line[5..])
 					};

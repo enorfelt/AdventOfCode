@@ -9,8 +9,7 @@ namespace AdventOfCode.Day10
 	public class Registry
 	{
 		private readonly object _lock = new object();
-		private static Registry? _instance;
-		private Registry()
+		public Registry()
 		{
 			X = 1;
 		}
@@ -26,14 +25,6 @@ namespace AdventOfCode.Day10
 				X += value;
 				OnRegistryUpdated?.Invoke(this, new RegistryUpdatedEventArgs { X = X });
 			}
-		}
-		public static Registry GetInstance()
-		{
-			if (_instance == null)
-			{
-				_instance = new Registry();
-			}
-			return _instance;
 		}
 	}
 }
