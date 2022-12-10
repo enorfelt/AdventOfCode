@@ -4,3 +4,4 @@ using AdventOfCode.Day9;
 var lines = File.ReadAllLines("Input.txt");
 
 Console.WriteLine(Part1.Run(lines).Tail.NumPositionsVisited);
+Console.WriteLine(Part1.Run(lines, 9).Tail.NumPositionsVisited);
