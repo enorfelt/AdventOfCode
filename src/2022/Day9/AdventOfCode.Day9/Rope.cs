@@ -23,48 +23,38 @@ public class Rope
 			var dY = head.CurrentPosition.Y - knot.CurrentPosition.Y;
 			var absX = Math.Abs(dX);
 			var absY = Math.Abs(dY);
+
 			if (absX > 1 || absY > 1)
 			{
-				if (absX > 0 && absY > 0)
+				var direction = GetDirection(absX, absY, dX, dY);
+				switch (direction)
 				{
-					if (dX > 0 && dY > 0)
-					{
-						knot.MoveUpRight();
-					}
-					else if (dX > 0 && dY < 0)
-					{
-						knot.MoveDownRight();
-					}
-					else if (dX < 0 && dY < 0)
-					{
-						knot.MoveDownLeft();
-					}
-					else
-					{
-						knot.MoveUpLeft();
-					}
-				}
-				else if (absY > 1) // move up or down
-				{
-					if (dY > 0)
-					{
-						knot.MoveUp();
-					}
-					else
-					{
-						knot.MoveDown();
-					}
-				}
-				else // move right or lef
-				{
-					if (dX > 0)
-					{
+					case DirectionEnum.R:
 						knot.MoveRight();
-					}
-					else
-					{
+						break;
+					case DirectionEnum.U:
+						knot.MoveUp();
+						break;
+					case DirectionEnum.L:
 						knot.MoveLeft();
-					}
+						break;
+					case DirectionEnum.D:
+						knot.MoveDown();
+						break;
+					case DirectionEnum.UR:
+						knot.MoveUpRight();
+						break;
+					case DirectionEnum.UL:
+						knot.MoveUpLeft();
+						break;
+					case DirectionEnum.DR:
+						knot.MoveDownRight();
+						break;
+					case DirectionEnum.DL:
+						knot.MoveDownLeft();
+						break;
+					default:
+						break;
 				}
 			}
 			else
@@ -75,36 +65,17 @@ public class Rope
 		
 	}
 
-	private void MoveRestOfKnots()
-	{
-		for (var i = 1; i < Knots.Count; i++)
+	private DirectionEnum GetDirection(int absX, int absY, int dX, int dY) =>
+		(absX, absY, dX, dY) switch
 		{
-			var head = Knots[i - 1];
-			var knot = Knots[i];
-
-			var absX = Math.Abs(knot.CurrentPosition.X - head.CurrentPosition.X);
-			var absY = Math.Abs(knot.CurrentPosition.Y - head.CurrentPosition.Y);
-
-			var manhatanDistance = absX + absY;
-			var diagonalDistance = Math.Min(absX, absY);
-
-
-			if (manhatanDistance == 2 && diagonalDistance == 1)
-			{
-				return;
-			}
-
-			if (manhatanDistance > 1)
-			{
-				var deltaX = head.CurrentPosition.X - head.PreviousPostion.X;
-				var deltaY = head.CurrentPosition.Y - head.PreviousPostion.Y;
-				knot.Move(new(knot.CurrentPosition.X + deltaX, knot.CurrentPosition.Y + deltaY));
-
-			}
-			else
-			{
-				return;
-			}
-		}
-	}
+			_ when absX > 0 && absY > 0 && dX > 0 && dY > 0 => DirectionEnum.UR,
+			_ when absX > 0 && absY > 0 && dX < 0 && dY > 0 => DirectionEnum.UL,
+			_ when absX > 0 && absY > 0 && dX > 0 && dY < 0 => DirectionEnum.DR,
+			_ when absX > 0 && absY > 0 && dX < 0 && dY < 0 => DirectionEnum.DL,
+			_ when absY > 1 && dY > 0 => DirectionEnum.U,
+			_ when absY > 1 && dY < 0 => DirectionEnum.D,
+			_ when absX > 1 && dX > 0 => DirectionEnum.R,
+			_ when absX > 1 && dX < 0 => DirectionEnum.L,
+			_ => throw new Exception("Case not covered")
+		};
 }
