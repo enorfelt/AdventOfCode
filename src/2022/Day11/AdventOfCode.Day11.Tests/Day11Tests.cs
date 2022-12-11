@@ -6,6 +6,8 @@ namespace AdventOfCode.Day11.Tests
 	{
 		public int ForMonkey => 0;
 
+		public int Mod => 23;
+
 		public double Operation(double old)
 		{
 			return old * 19;
@@ -13,12 +15,14 @@ namespace AdventOfCode.Day11.Tests
 
 		public bool Test(double item)
 		{
-			return item % 23 == 0;
+			return item % Mod == 0;
 		}
 	}
 	public class Monkey1Operation : IOperation
 	{
 		public int ForMonkey => 1;
+
+		public int Mod => 19;
 
 		public double Operation(double old)
 		{
@@ -27,12 +31,14 @@ namespace AdventOfCode.Day11.Tests
 
 		public bool Test(double item)
 		{
-			return item % 19 == 0;
+			return item % Mod == 0;
 		}
 	}
 	public class Monkey2Operation : IOperation
 	{
 		public int ForMonkey => 2;
+
+		public int Mod => 13;
 
 		public double Operation(double old)
 		{
@@ -41,12 +47,14 @@ namespace AdventOfCode.Day11.Tests
 
 		public bool Test(double item)
 		{
-			return item % 13 == 0;
+			return item % Mod == 0;
 		}
 	}
 	public class Monkey3Operation : IOperation
 	{
 		public int ForMonkey => 3;
+
+		public int Mod => 17;
 
 		public double Operation(double old)
 		{
@@ -55,7 +63,7 @@ namespace AdventOfCode.Day11.Tests
 
 		public bool Test(double item)
 		{
-			return item % 17 == 0;
+			return item % Mod == 0;
 		}
 	}
 	public class Day11Tests
@@ -68,24 +76,31 @@ namespace AdventOfCode.Day11.Tests
 			{3, new Monkey3Operation() },
 		};
 
-		[Fact]
-		public void Test1()
+		private readonly int superMod; 
+
+		public Day11Tests()
 		{
-			var lines = File.ReadAllLines("TestInput.txt");
-
-			var result = Part1.Run(lines, operations, 20);
-
-			Assert.Equal(10197, result.SomeResult);
+			superMod = operations.Select(x => x.Value).Select(v => v.Mod).Aggregate(1, (x, y) => x * y);
 		}
 
 		[Fact]
-		public void Test2()
+		public void Part1Test()
 		{
 			var lines = File.ReadAllLines("TestInput.txt");
 
-			var result = Part1.Run(lines, operations, 10000);
+			var result = Part1.Run(lines, operations);
 
-			Assert.Equal(2713310158, result.SomeResult);
+			Assert.Equal(10605, result.LevelOfMonkeyBusiness);
+		}
+
+		[Fact]
+		public void Part2Test()
+		{
+			var lines = File.ReadAllLines("TestInput.txt");
+
+			var result = Part2.Run(lines, operations);
+
+			Assert.Equal(2713310158, result.LevelOfMonkeyBusiness);
 		}
 	}
 }

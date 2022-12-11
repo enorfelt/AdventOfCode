@@ -12,5 +12,5 @@ var operations = new Dictionary<int, IOperation>
 			{ 7, new Monkey7Operation() }
 		};
 var lines = File.ReadAllLines("Input.txt");
-//Console.WriteLine(Part1.Run(lines, operations));
-Console.WriteLine(Part1.Run(lines, operations, 10000));
+Console.WriteLine(Part1.Run(lines, operations));
+Console.WriteLine(Part2.Run(lines, operations));
