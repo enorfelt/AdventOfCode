@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using AdventOfCode.Common;
 using System.Diagnostics;
 
 namespace AdventOfCode.Day12;

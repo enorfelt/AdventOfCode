@@ -1,5 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-namespace AdventOfCode.Day12;
+namespace AdventOfCode.Common;
 
 public record struct Coords(int X, int Y);

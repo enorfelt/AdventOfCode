@@ -1,5 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using AdventOfCode.Common;
+
 namespace AdventOfCode.Day12;
 
 public class Square

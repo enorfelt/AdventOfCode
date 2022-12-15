@@ -1,3 +1,5 @@
+using AdventOfCode.Common;
+
 namespace AdventOfCode.Day12.Tests
 {
 	public class Day12Tests
