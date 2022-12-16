@@ -13,11 +13,11 @@ public class Part1
 		while (!cave.IsFilledWithSand)
 		{
 			cave.StartPour();
-			Console.Clear();
-			Console.WriteLine(cave.SandCount);
+			//Console.Clear();
+			//Console.WriteLine(cave.SandCount);
 		}
 
-		cave.Print();
+		//cave.Print();
 
 		return cave.SandCount;
 	}
@@ -42,7 +42,7 @@ public class Part2
 		}
 		stopWatch.Stop();
 		Console.WriteLine(stopWatch.Elapsed.TotalSeconds);
-		cave.Print();
+		//cave.Print();
 		return cave.SandCount;
 	}
 }
